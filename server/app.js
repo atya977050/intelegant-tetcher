@@ -1,52 +1,43 @@
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const express = require("express");
-const path = require("path");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../public")));
 
-// مسار فحص الصحة المطلوب من Railway
 app.get("/api/health", (req, res) => {
-  res.status(200).send("OK");
+    res.status(200).json({ status: "ok" });
 });
 
-// مسار المنصات والروابط الخارجية
-app.get("/api/platforms", (req, res) => {
-  res.json({
-    platforms: [
-      { name: "منصة الدروس الذكية", url: "#", desc: "شروحات مبسطة لمناهج الصف الأول الابتدائي" },
-      { name: "بنك اختبارات اليقين", url: "#", desc: "تمارين وأسئلة تفاعلية لقياس الفهم" },
-      { name: "مكتبة رفقة الدرب", url: "#", desc: "قصص ومراجع رياضيات ممتعة" }
-    ]
-  });
-});
-
-// مسار الشات والتفاعل الذكي مع الأدوات
 app.post("/api/chat", (req, res) => {
-  const { message, action } = req.body;
-  let reply = "أهلاً بك يا رفيق الدرب 🌿 لقد استلمت طلبك وجاري العمل عليه لتكون من الأوائل دائماً!";
-
-  if (action === "test") {
-    reply = "🎯 **اختبار اليقين:** احسب الناتج التالي: مع مريم 5 تفاحات أكلت منها 2، فكم تفاحة بقيت معها؟";
-  } else if (action === "plan") {
-    reply = "📈 **خطة الارتقاء:** 1. مراجعة الأعداد من 1 إلى 10 اليوم. 2. حل 3 تمارين جمع بسيطة. 3. أخذ استراحة قصيرة.";
-  } else if (action === "lessons") {
-    reply = "📚 **مراجعة الدروس:** درسنا اليوم يدور حول الجمع التصاعدي بطريقة ممتعة وسريعة باستخدام الأصابع!";
-  } else if (message) {
-    reply = `🌿 استلمت سؤالك: "${message}". الإجابة النموذجية: ممتاز يا بطل، واصل التدريب فالتفوق حليفك!`;
-  }
-
-  res.json({ reply });
-});
-
-// رفع الملفات
-app.post("/api/upload", (req, res) => {
-  res.json({ success: true, message: "📎 تم استلام الملف وتحليله بنجاح يا رفيق الدرب!" });
+    const { message, action } = req.body;
+    let reply = "أهلاً بك يا رفيق الدرب 🌿 أنا معك لمساعدتك في دروس الرياضيات والتمارين!";
+    
+    if (action === "test") {
+        reply = "🎯 اختبار اليقين: كم عدد التفاحات إذا كان لديك 3 تفاحات وأخذت تفاحتان؟ (الإجابة: 1)";
+    } else if (action === "plan") {
+        reply = "📈 خطة الارتقاء: 1. مراجعة العد حتى 5. 2. التدرب على الجمع البسيط. 3. حل تمارين الأشكال الهندسية.";
+    } else if (action === "explain") {
+        reply = "💡 شرح الدرس الأول: التعرف على الأعداد من (0 إلى 5) وعد الأشياء بدقة يعني مطابقة كل عنصر برقم واحد بالتسلسل.";
+    } else if (message) {
+        if (message.includes("الجمع") || message.includes("جمع")) {
+            reply = "الجمع التصاعدي هو إضافة عدد إلى آخر، مثل: 2 + 3 = 5. حاول حل هذا التمرين: 4 + 1 = كم؟";
+        } else if (message.includes("مرحباً") || message.includes("السلام")) {
+            reply = "وعليكم السلام ورحمة الله يا رفيق الدرب 🌿 كيف تشعر اليوم؟ هل نبدأ بحل التمارين؟";
+        } else {
+            reply = `سؤال جميل يا رفيق الدرب: "${message}". في الصف الأول الابتدائي، نتعلم كيف نفكر بهذه المسائل خطوة بخطوة!`;
+        }
+    }
+    
+    res.json({ reply });
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 [المعلم الذكي أونلاين] المنصة جاهزة تعمل على: http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
