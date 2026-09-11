@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة المعلم الذكي أونلاين</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f8fafc; color: #1e293b; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        .app-container { display: flex; flex-direction: column; height: 100%; width: 100%; max-width: 600px; margin: 0 auto; background: #ffffff; box-shadow: 0 0 15px rgba(0,0,0,0.05); }
+
+        .app-header { background: #1e293b; color: white; padding: 12px 15px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+        .nav-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+        .nav-tabs::-webkit-scrollbar { display: none; }
+        .nav-tab { background: rgba(255,255,255,0.1); border: none; color: #cbd5e1; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; white-space: nowrap; }
+        .nav-tab.active { background: #3b82f6; color: white; font-weight: 600; }
+
+        .content-area { flex: 1; overflow-y: auto; background: #fdfdfd; display: flex; flex-direction: column; }
+        
+        .view-section { display: none; padding: 15px; flex-direction: column; gap: 12px; height: 100%; }
+        .view-section.active { display: flex; }
+
+        .chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 10px; }
+        .message { padding: 10px 14px; border-radius: 12px; max-width: 88%; line-height: 1.5; font-size: 0.9rem; }
+        .message.bot { background: #f1f5f9; color: #334155; align-self: flex-start; border-bottom-right-radius: 4px; }
+        .message.user { background: #3b82f6; color: white; align-self: flex-end; border-bottom-left-radius: 4px; }
+
+        .chat-bottom-wrapper { background: #ffffff; border-top: 1px solid #e2e8f0; padding: 10px 12px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+        
+        .chat-input-row { display: flex; gap: 6px; width: 100%; align-items: center; }
+        .chat-input-row input[type="text"] { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.9rem; outline: none; background: #fff; }
+        
+        .action-btn { background: #3b82f6; color: white; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; cursor: pointer; white-space: nowrap; font-size: 0.85rem; }
+        .file-btn { background: #e2e8f0; color: #334155; border: none; padding: 10px 12px; border-radius: 10px; cursor: pointer; white-space: nowrap; font-size: 0.85rem; }
+
+        .chat-toolbar { display: flex; gap: 6px; overflow-x: auto; width: 100%; scrollbar-width: none; }
+        .chat-toolbar::-webkit-scrollbar { display: none; }
+        .tool-btn { flex: 0 0 auto; background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; padding: 6px 10px; border-radius: 6px; font-size: 0.78rem; cursor: pointer; white-space: nowrap; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="app-header">
+            <h1 style="font-size: 1.1rem;">منصة المعلم الذكي أونلاين 🌿</h1>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="switchView('home', this)">🏠 الرئيسية</button>
+                <button class="nav-tab" onclick="switchView('chat', this)">🤖 الشات والمساعد</button>
+                <button class="nav-tab" onclick="switchView('library', this)">📚 المكتبة</button>
+                <button class="nav-tab" onclick="switchView('tests', this)">✍️ اختبارات اليقين</button>
+                <button class="nav-tab" onclick="switchView('companions', this)">🤝 رفقة الدرب</button>
+            </nav>
+        </header>
+
+        <div class="content-area">
+            
+            <!-- 1. Home View -->
+            <div id="home-view" class="view-section active" style="gap: 14px; padding: 18px;">
+                <div class="welcome-card" style="background: linear-gradient(135deg, #1e3a8a, #2563eb); padding: 24px; border-radius: 18px; color: white; box-shadow: 0 6px 20px rgba(37,99,235,0.3);">
+                    <h2 style="font-size: 1.35rem; margin-bottom: 12px; font-weight: 700; letter-spacing: -0.5px;">أهلاً بك يا رفيق الدرب وبوصلة النور 🌿</h2>
+                    <p style="font-size: 0.98rem; line-height: 1.8; opacity: 0.96;">
+                        من هنا، من نبض الإحساس وصدق البدايات، نبحر معاً في رحاب المعرفة واليقين. أنا معلمك المحب ومرافقك الدائم في مسار <strong>(الصف الأول الابتدائي - الرياضيات الذكية وتوسيع المدارك)</strong>. صُممت هذه المنصة بمداد القلب وروح الإخاء لنصنع معاً مجداً عاطفياً وعلمياً يليق بطموحك العظيم. لا تقلق من صعوبة، ولا تستصعب طريقاً، فكل خطوة نخطوها هنا هي لبنة راسخة في بناء مستقبلك المشرق. كيف ترنو عيناك لنبدأ مسيرتنا اليوم؟ ✨
+                    </p>
+                </div>
+                
+                <div style="background: #ffffff; padding: 16px; border-radius: 14px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 10px;">
+                    <h3 style="font-size: 1.05rem; color: #1e293b; font-weight: 600;">🌟 محطات النور اليومية</h3>
+                    <p style="font-size: 0.9rem; color: #64748b; line-height: 1.5;">اختر وجهتك لنرتقي سوياً نحو قمم الفهم والتميّز:</p>
+                    <button class="action-btn" style="width: 100%; text-align: right; padding: 13px; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center;" onclick="switchView('chat', document.querySelector('.nav-tab:nth-child(2)'))">
+                        <span>🤖 ابدأ الشات مع المعلم المرافق</span>
+                        <span>←</span>
+                    </button>
+                    <button class="file-btn" style="width: 100%; text-align: right; padding: 13px; background: #f8fafc; border: 1px solid #cbd5e1; font-size: 0.95rem; color: #334155; display: flex; justify-content: space-between; align-items: center;" onclick="switchView('tests', document.querySelector('.nav-tab:nth-child(4)'))">
+                        <span>🎯 اطلب اختباراً تقييمياً فورياً</span>
+                        <span>←</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. Chat View -->
+            <div id="chat-view" class="view-section" style="padding: 10px; justify-content: space-between;">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">
+                        أهلاً بك يا رفيق الدرب 🌿 أنا معلمك الذكي ومرافقك في مسارك (الصف الأول الابتدائي - الرياضيات الذكية وتوسيع المدارك). حضرت لك اليوم مراجعة شاملة للدروس السابقة مع إمكانية شرح أي درس أو مستند ترفعه. كيف أساعدك لتكون من الأوائل اليوم؟
+                    </div>
+                </div>
+
+                <div class="chat-bottom-wrapper">
+                    <div class="chat-input-row">
+                        <input type="file" id="chatFile" style="display:none" onchange="handleFileUpload(event)">
+                        <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا بكل مرونة..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                        <button type="button" class="file-btn" onclick="document.getElementById('chatFile').click()" title="رفع ملف">📎 ملف</button>
+                        <button type="button" class="action-btn" onclick="sendChatMessage()">إرسال 🚀</button>
+                    </div>
+
+                    <div class="chat-toolbar">
+                        <button class="tool-btn" onclick="sendQuickAction('اطلب اختباراً تقييمياً فورياً')">🎯 اطلب اختباراً</button>
+                        <button class="tool-btn" onclick="sendQuickAction('خطة الارتقاء وحصد أعلى الدرجات')">📈 خطة الارتقاء</button>
+                        <button class="tool-btn" onclick="sendQuickAction('مراجعة شاملة للدروس السابقة')">📚 مراجعة الدروس</button>
+                        <button class="tool-btn" onclick="sendQuickAction('اشرح لي الدرس الأول بالتفصيل')">💡 شرح الدرس الأول</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Library View -->
+            <div id="library-view" class="view-section" style="gap: 14px; padding: 18px;">
+                <div style="background: #ffffff; padding: 18px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                    <h3 style="color: #1e293b; font-size: 1.15rem; margin-bottom: 8px; font-weight: 700;">📚 المكتبة التعليمية والينابيع التأسيسية</h3>
+                    <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin-bottom: 14px;">بستان معرفي متكامل يضم كافة الدروس، البطاقات البصرية، والمراجع التأسيسية المصممة بعناية فائقة لتناسب عقل وتفكير طالب الصف الأول الابتدائي. انقر على أي وحدة لبدء شرحها فوراً مع المعلم المرافق:</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button onclick="sendQuickAction('اشرح لي وحدة الأعداد والعد الذكي من 1 إلى 20 بالتفصيل')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 12px 14px; border-radius: 10px; border-right: 4px solid #3b82f6; font-size: 0.9rem; color: #334155; text-align: right; cursor: pointer; width: 100%; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                            <span>📖 وحدة الأعداد والعد الذكي (من 1 إلى 20)</span>
+                            <span>← ابدأ الشرح</span>
+                        </button>
+                        <button onclick="sendQuickAction('اشرح لي هندسة الأشكال وبناء الأنماط البصرية')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 12px 14px; border-radius: 10px; border-right: 4px solid #10b981; font-size: 0.9rem; color: #334155; text-align: right; cursor: pointer; width: 100%; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                            <span>📐 هندسة الأشكال وبناء الأنماط البصرية</span>
+                            <span>← ابدأ الشرح</span>
+                        </button>
+                        <button onclick="sendQuickAction('اشرح لي مفاهيم الجمع المبكر وتوسيع المدارك')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 12px 14px; border-radius: 10px; border-right: 4px solid #f59e0b; font-size: 0.9rem; color: #334155; text-align: right; cursor: pointer; width: 100%; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">
+                            <span>➕ مفاهيم الجمع المبكر وتوسيع المدارك</span>
+                            <span>← ابدأ الشرح</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Tests View -->
+            <div id="tests-view" class="view-section" style="gap: 14px; padding: 18px;">
+                <div style="background: #ffffff; padding: 18px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                    <h3 style="color: #1e293b; font-size: 1.15rem; margin-bottom: 8px; font-weight: 700;">✍️ اختبارات اليقين القصيرة والتقييمات الفورية</h3>
+                    <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin-bottom: 14px;">محطات تفاعلية تقيس مدى استيعاب المفاهيم الرياضية وتضمن تثبيتها بيقين مطلق ودون أي فجوات.</p>
+                    <div style="background: #eff6ff; padding: 14px; border-radius: 12px; border: 1px solid #bfdbfe; margin-bottom: 12px;">
+                        <p style="font-size: 0.95rem; color: #1e3a8a; font-weight: 600; margin-bottom: 6px;">سؤال اليقين اليومي:</p>
+                        <p style="font-size: 0.9rem; color: #334155; line-height: 1.5;">كيف نضمن بناء تفكير رياضي ومنطقي سليم ومترابط بدون أي أخطاء تراكمية في مرحلة التأسيس الأولى؟</p>
+                    </div>
+                    <button class="action-btn" style="width: 100%; padding: 12px;" onclick="switchView('chat', document.querySelector('.nav-tab:nth-child(2)')); document.getElementById('chatInput').value='أريد الإجابة عن سؤال اختبار اليقين وتصحيحه معي'; sendChatMessage();">✍️ ابدأ الإجابة مع المعلم المرافق</button>
+                </div>
+            </div>
+
+            <!-- 5. Companions View -->
+            <div id="companions-view" class="view-section" style="gap: 14px; padding: 18px;">
+                <div style="background: #ffffff; padding: 18px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.02);">
+                    <h3 style="color: #1e293b; font-size: 1.15rem; margin-bottom: 8px; font-weight: 700;">🤝 رفقة الدرب والإخاء العلمي</h3>
+                    <p style="font-size: 0.92rem; color: #475569; line-height: 1.6; margin-bottom: 14px;">هنا نلتقي لنرتقي معاً نحو قمم التفوق الدراسي. بيئة دافئة تجمعنا على حب المعلم والتعاون المشترك للوصول إلى أعلى درجات الإتقان والتميز.</p>
+                    <div style="background: #f0fdf4; padding: 14px; border-radius: 12px; border: 1px solid #bbf7d0; color: #166534; font-size: 0.9rem; line-height: 1.5;">
+                        🌿 «المعلم الناجح ليس من يلقن المعلومة فحسب، بل من يزرع الشغف ويحيي العزم في قلب طالبه». نحن معك في كل خطوة حتى نصل للقمة معاً!
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchView(viewName, tabElement) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(viewName + '-view').classList.add('active');
+            if(tabElement) tabElement.classList.add('active');
+        }
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if(!text) return;
+            
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.textContent = text;
+            messagesContainer.appendChild(userMsg);
+            
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'message bot';
+                botMsg.textContent = "أحسنت يا رفيق الدرب 🌿 لقد استلمت سؤالك وجاري تحليل الإجابة لنصل معاً إلى قمة التفوق والإبداع!";
+                messagesContainer.appendChild(botMsg);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 600);
+        }
+
+        function sendQuickAction(actionText) {
+            switchView('chat', document.querySelector('.nav-tab:nth-child(2)'));
+            document.getElementById('chatInput').value = actionText;
+            sendChatMessage();
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if(file) {
+                switchView('chat', document.querySelector('.nav-tab:nth-child(2)'));
+                const messagesContainer = document.getElementById('chatMessages');
+                const fileMsg = document.createElement('div');
+                fileMsg.className = 'message user';
+                fileMsg.textContent = `📎 تم إرفاق الملف: ${file.name}`;
+                messagesContainer.appendChild(fileMsg);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
